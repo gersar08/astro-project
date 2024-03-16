@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+  getLaunchBy,
+  //  getLatestLaunches
+} from "../../services/spacex";
+
+const { id } = Astro.params;
+
+let launch;
+if (id) {
+  launch = await getLaunchBy({ id });
+}
+//Esta manera es ideal pero no para paginas dinamicas
+
+/*
+export async function getStaticPaths() {
+  //Llamar a una API externa
+  //Para saber todas las ids que debes generar
+
+  const launches = await getLatestLaunches();
+  return launches.map((launch) => ({
+    params: { id: launch.id },
+  }));
+}
+*/
+---
+
+<Layout title={`Lanzamiento ${id}`}>
+  <article>
+    {launch?.id}
+  </article>
+</Layout>
